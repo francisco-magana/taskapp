@@ -1,0 +1,31 @@
+<h1>Historial</h1>
+<button (click)="clearHistory()" class="btn btn-danger my-4">
+  Clear History
+</button>
+<div class="border p-5" style="max-height: 70vh !important; overflow-y: auto">
+  <div *ngIf="emptyHistory">
+    <p class="text-secondary text-center">HISTORY IS EMPTY</p>
+  </div>
+  <div *ngFor="let histor of history" role="alert">
+    <div
+      class="d-flex justify-content-between flex-column alert"
+      [ngClass]="{
+        'alert-primary': histor.action === 'add',
+        'alert-success': histor.action === 'completed',
+        'alert-danger': histor.action === 'delete'
+      }"
+    >
+    <div class="d-block">
+      <div [ngSwitch]="histor.action">
+        <div *ngSwitchCase="'add'" class="fw-bold">CREATED</div>
+        <div *ngSwitchCase="'completed'" class="fw-bold">COMPLETED</div>
+        <div *ngSwitchCase="'delete'" class="fw-bold">DELETED</div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between">
+      <p style="margin: 0">{{ histor.text }}</p>
+      <p style="margin: 0">{{ histor.date }}</p>
+    </div>
+    </div>
+  </div>
+</div>
